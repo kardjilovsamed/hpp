@@ -1,9 +1,5 @@
 package fr.tse.fi2.hpp.labs.queries;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -17,6 +13,7 @@ import fr.tse.fi2.hpp.labs.beans.GridPoint;
 import fr.tse.fi2.hpp.labs.beans.Route;
 import fr.tse.fi2.hpp.labs.beans.measure.QueryProcessorMeasure;
 import fr.tse.fi2.hpp.labs.dispatcher.StreamingDispatcher;
+import fr.tse.fi2.hpp.labs.queries.impl.lab3.ThreadEcriture;
 
 /**
  * Every query must extend this class that provides basic functionalities such
@@ -33,7 +30,7 @@ import fr.tse.fi2.hpp.labs.dispatcher.StreamingDispatcher;
  */
 public abstract class AbstractQueryProcessor implements Runnable {
 
-	final static Logger logger = LoggerFactory
+	protected final static Logger logger = LoggerFactory
 			.getLogger(AbstractQueryProcessor.class);
 
 	/**
@@ -44,10 +41,7 @@ public abstract class AbstractQueryProcessor implements Runnable {
 	 * Unique ID of the query processor
 	 */
 	private final int id = COUNTER.incrementAndGet();
-	/**
-	 * Writer to write the output of the queries
-	 */
-	private BufferedWriter outputWriter;
+
 	/**
 	 * Internal queue of events
 	 */
@@ -61,6 +55,9 @@ public abstract class AbstractQueryProcessor implements Runnable {
 	 */
 	private CountDownLatch latch;
 
+	private BlockingQueue<String> queueEcriture = null;
+
+
 	/**
 	 * Default constructor. Initialize event queue and writer
 	 */
@@ -70,14 +67,13 @@ public abstract class AbstractQueryProcessor implements Runnable {
 		// Initialize queue
 		this.eventqueue = new LinkedBlockingQueue<>();
 
-		// Initialize writer
-		try {
-			outputWriter = new BufferedWriter(new FileWriter(new File(
-					"result/query" + id + ".txt")));
-		} catch (IOException e) {
-			logger.error("Cannot open output file for " + id, e);
-			System.exit(-1);
-		}
+		queueEcriture = new LinkedBlockingQueue<>();
+
+		ThreadEcriture thread1 = new ThreadEcriture(queueEcriture, id);
+		new Thread(thread1).start();
+
+
+
 	}
 
 	public void setLatch(CountDownLatch latch) {
@@ -107,6 +103,16 @@ public abstract class AbstractQueryProcessor implements Runnable {
 		// Finish, close the writer and notify the measurement
 		finish();
 		logger.info("Closing query processor " + id);
+	}
+
+
+	/**
+	 * 
+	 * @param line
+	 *            the line to write as an answer
+	 */
+	protected void writeLine(String line) {
+		queueEcriture.add(line);
 	}
 
 	/**
@@ -186,38 +192,17 @@ public abstract class AbstractQueryProcessor implements Runnable {
 		return id;
 	}
 
-	/**
-	 * 
-	 * @param line
-	 *            the line to write as an answer
-	 */
-	protected void writeLine(String line) {
-		try {
-			outputWriter.write(line);
-			outputWriter.newLine();
-		} catch (IOException e) {
-			logger.error("Could not write new line for query processor " + id
-					+ ", line content " + line, e);
-		}
 
-	}
 
 	/**
 	 * Poison pill has been received, close output
 	 */
 	protected void finish() {
-		// Close writer
-		try {
-			outputWriter.flush();
-			outputWriter.close();
-		} catch (IOException e) {
-			logger.error("Cannot property close the output file for query "
-					+ id, e);
-		}
 		// Notify finish time
 		measure.notifyFinish(this.id);
 		// Decrease latch count
 		latch.countDown();
+		queueEcriture.add("FINISHED");
 	}
 
 }

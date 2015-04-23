@@ -7,7 +7,7 @@ import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 public class SumQuery extends AbstractQueryProcessor {
 
 	private float sum = 0;
-	
+
 	public SumQuery(QueryProcessorMeasure measure) {
 		super(measure);
 		// TODO Auto-generated constructor stub
@@ -16,7 +16,7 @@ public class SumQuery extends AbstractQueryProcessor {
 	@Override
 	protected void process(DebsRecord record) {
 		// TODO Auto-generated method stub
-		
+
 		sum += record.getFare_amount();
 		writeLine("Somme " + sum);
 	}
