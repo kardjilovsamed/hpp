@@ -8,11 +8,13 @@ import java.util.concurrent.CountDownLatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.tse.fi2.hpp.labs.beans.DebsRecord;
 import fr.tse.fi2.hpp.labs.beans.measure.QueryProcessorMeasure;
 import fr.tse.fi2.hpp.labs.dispatcher.LoadFirstDispatcher;
 import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 import fr.tse.fi2.hpp.labs.queries.impl.lab1.IncrementalAverage;
 import fr.tse.fi2.hpp.labs.queries.impl.lab1.NaiveAverage;
+import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor;
 
 /**
  * Main class of the program. Register your new queries here
@@ -37,15 +39,16 @@ public class MainNonStreaming {
 		QueryProcessorMeasure measure = new QueryProcessorMeasure();
 		// Init dispatcher and load everything
 		LoadFirstDispatcher dispatch = new LoadFirstDispatcher(
-				"src/main/resources/data/100k.csv");
+				"src/main/resources/data/sorted_data.csv");
 		logger.info("Finished parsing");
 		// Query processors
 		List<AbstractQueryProcessor> processors = new ArrayList<>();
 
 		// Add you query processor here
 		//processors.add(new SimpleQuerySumEvent(measure));
-		processors.add(new NaiveAverage(measure));
-		processors.add(new IncrementalAverage(measure));	
+		//processors.add(new NaiveAverage(measure));
+		//processors.add(new IncrementalAverage(measure));	
+		processors.add(new RouteMembershipProcessor(measure));	
 
 
 		// Register query processors
@@ -75,6 +78,18 @@ public class MainNonStreaming {
 		// Output measure and ratio per query processor
 		measure.setProcessedRecords(dispatch.getRecords());
 		measure.outputMeasure();
+
+		/*
+		float x1 = (float) -73.98358;
+		float y1= (float) 40.7341;
+		float x2= (float) -73.98048;
+		float y2= (float) 40.72557 ;
+		String l1= "4FE0002AAE2310E6DD209FBB9187AF71";
+		*/
+
+		DebsRecord recordTest = RouteMembershipProcessor.getRec();
+		
+		System.out.println("Route find : " + RouteMembershipProcessor.checkroute(recordTest));
 
 	}
 

@@ -13,6 +13,7 @@ import fr.tse.fi2.hpp.labs.dispatcher.StreamingDispatcher;
 import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 import fr.tse.fi2.hpp.labs.queries.impl.lab1.IncrementalAverage;
 import fr.tse.fi2.hpp.labs.queries.impl.lab1.NaiveAverage;
+import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor;
 
 /**
  * Main class of the program. Register your new queries here
@@ -36,15 +37,16 @@ public class MainStreaming {
 		QueryProcessorMeasure measure = new QueryProcessorMeasure();
 		// Init dispatcher
 		StreamingDispatcher dispatch = new StreamingDispatcher(
-				"src/main/resources/data/100k.csv");
+				"src/main/resources/data/sorted_data.csv");
 
 		// Query processors
 		List<AbstractQueryProcessor> processors = new ArrayList<>();
 
 		// Add you query processor here
 		//processors.add(new SimpleQuerySumEvent(measure));
-		processors.add(new NaiveAverage(measure));
-		processors.add(new IncrementalAverage(measure));
+		//processors.add(new NaiveAverage(measure));
+		//processors.add(new IncrementalAverage(measure));
+		processors.add(new RouteMembershipProcessor(measure));	
 
 
 		// Register query processors

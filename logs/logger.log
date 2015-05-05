@@ -1,6 +1,4 @@
-[11:29:31] [INFO ] (MainNonStreaming.java:main:45) Finished parsing
-[11:29:31] [INFO ] (AbstractQueryProcessor.java:run:89) Starting query processor 1
-[11:29:31] [INFO ] (AbstractQueryProcessor.java:run:89) Starting query processor 2
-[11:29:31] [INFO ] (MainNonStreaming.java:main:76) Finished Dispatching
-[11:29:32] [INFO ] (AbstractQueryProcessor.java:run:109) Closing query processor 2
-[11:30:47] [INFO ] (AbstractQueryProcessor.java:run:109) Closing query processor 1
+[16:06:35] [INFO ] (MyBenchmark.java:init:53) Finished parsing
+[16:06:35] [INFO ] (AbstractQueryProcessor.java:run:85) Starting query processor 1
+[16:06:39] [INFO ] (MyBenchmark.java:init:81) Finished Dispatching
+[16:06:39] [INFO ] (AbstractQueryProcessor.java:run:105) Closing query processor 1
