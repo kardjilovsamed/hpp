@@ -12,6 +12,7 @@ import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 public class RouteMembershipProcessor2 extends AbstractQueryProcessor {
 
 	public static BitSet listeHashRoute = new BitSet(14378);
+	private static DebsRecord lastRec;
 
 	public RouteMembershipProcessor2(QueryProcessorMeasure measure) {
 		super(measure);
@@ -33,8 +34,11 @@ public class RouteMembershipProcessor2 extends AbstractQueryProcessor {
 			
 			listeHashRoute.set( index );
 		}
+		lastRec = record;
 	}
 
+	public static DebsRecord getRec(){ return lastRec; }
+	
 	public static String getStringConca (DebsRecord record){
 
 		String result = null;

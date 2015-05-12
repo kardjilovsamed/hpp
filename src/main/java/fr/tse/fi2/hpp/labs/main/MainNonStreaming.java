@@ -16,6 +16,7 @@ import fr.tse.fi2.hpp.labs.queries.impl.lab1.IncrementalAverage;
 import fr.tse.fi2.hpp.labs.queries.impl.lab1.NaiveAverage;
 import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor;
 import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor2;
+import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor3;
 
 /**
  * Main class of the program. Register your new queries here
@@ -49,7 +50,7 @@ public class MainNonStreaming {
 		//processors.add(new SimpleQuerySumEvent(measure));
 		//processors.add(new NaiveAverage(measure));
 		//processors.add(new IncrementalAverage(measure));	
-		processors.add(new RouteMembershipProcessor2(measure));	
+		processors.add(new RouteMembershipProcessor3(measure));	
 
 
 		// Register query processors
@@ -91,11 +92,10 @@ public class MainNonStreaming {
 		
 		DebsRecord recordTestFaux = new DebsRecord("", "", 4, 4, 4, 4, 4, 4, 4, 4, "", 4, 4, 4, 4, 4, 4, false);
 		DebsRecord recordTestVrai = new DebsRecord("", l1, 4, 4, 4, 4, x1, y1, x2, y2, "", 4, 4, 4, 4, 4, 4, false);
+		//recordTestVrai = RouteMembershipProcessor3.getRec();
 		
-		
-		System.out.println("Route find : " + RouteMembershipProcessor2.checkroute(recordTestVrai));
-		System.out.println("Route find : " + RouteMembershipProcessor2.checkroute(recordTestFaux));
-
+		System.out.println("Route find : " + RouteMembershipProcessor3.checkroute(recordTestVrai));
+		System.out.println("Route find : " + RouteMembershipProcessor3.checkroute(recordTestFaux));
 	}
 
 }
