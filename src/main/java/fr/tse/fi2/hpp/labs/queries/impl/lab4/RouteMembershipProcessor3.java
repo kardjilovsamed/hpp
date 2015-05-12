@@ -14,7 +14,6 @@ import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 public class RouteMembershipProcessor3 extends AbstractQueryProcessor {
 
 	private static DebsRecord lastRec;
-	HashFunction hf = Hashing.md5();
 
 	public RouteMembershipProcessor3(QueryProcessorMeasure measure) {
 		super(measure);

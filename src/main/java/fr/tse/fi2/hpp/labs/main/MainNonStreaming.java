@@ -89,13 +89,24 @@ public class MainNonStreaming {
 		float y2= (float) 40.75883;
 		String l1= "FDAE3E515EB1419900CF1D5E83073FB2";
 		
-		
+
 		DebsRecord recordTestFaux = new DebsRecord("", "", 4, 4, 4, 4, 4, 4, 4, 4, "", 4, 4, 4, 4, 4, 4, false);
 		DebsRecord recordTestVrai = new DebsRecord("", l1, 4, 4, 4, 4, x1, y1, x2, y2, "", 4, 4, 4, 4, 4, 4, false);
 		//recordTestVrai = RouteMembershipProcessor3.getRec();
 		
 		System.out.println("Route find : " + RouteMembershipProcessor3.checkroute(recordTestVrai));
 		System.out.println("Route find : " + RouteMembershipProcessor3.checkroute(recordTestFaux));
+
+		int nb = 0;
+		
+		for( int i = 0; i<10000; i++){
+			DebsRecord recordTest = new DebsRecord("", l1, 4, 4, 4, 4, x1, i, x2, y2, "", 4, 4, 4, 4, 4, 4, false);
+			if( RouteMembershipProcessor3.checkroute(recordTest) == true ){
+				nb++;
+			}
+		}
+		
+		System.out.println("Sur 10 000 routes fausses, il y en a "+nb+" qui sont considérées vrai, soit une erreur de "+ (float)nb/100 +" %.");
 	}
 
 }
