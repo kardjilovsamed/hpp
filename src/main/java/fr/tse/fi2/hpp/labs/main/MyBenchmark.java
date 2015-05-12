@@ -39,7 +39,8 @@ import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor;
 @State(Scope.Benchmark)
 public class MyBenchmark {
 
-	private DebsRecord recordTest;
+	private DebsRecord recordTestFaux = new DebsRecord("", "", 4, 4, 4, 4, 4, 4, 4, 4, "", 4, 4, 4, 4, 4, 4, false);
+	private DebsRecord recordTestvrai;
 	final static Logger logger = LoggerFactory
 			.getLogger(MainNonStreaming.class);
 	
@@ -96,7 +97,7 @@ public class MyBenchmark {
 				float y2= (float) 40.72557 ;
 				String l1= "4FE0002AAE2310E6DD209FBB9187AF71";*/
 
-				recordTest = RouteMembershipProcessor.getRec();
+				recordTestvrai = RouteMembershipProcessor.getRec();
 				
 				
 	}
@@ -104,7 +105,7 @@ public class MyBenchmark {
 
 	@Benchmark
 	public void testMethod1() {
-		System.out.println("Route find : " + RouteMembershipProcessor.checkroute(recordTest));
+		System.out.println("Route find : " + RouteMembershipProcessor.checkroute(recordTestFaux));
 	}
 
 	//    @Benchmark

@@ -15,6 +15,7 @@ import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 import fr.tse.fi2.hpp.labs.queries.impl.lab1.IncrementalAverage;
 import fr.tse.fi2.hpp.labs.queries.impl.lab1.NaiveAverage;
 import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor;
+import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor2;
 
 /**
  * Main class of the program. Register your new queries here
@@ -39,7 +40,7 @@ public class MainNonStreaming {
 		QueryProcessorMeasure measure = new QueryProcessorMeasure();
 		// Init dispatcher and load everything
 		LoadFirstDispatcher dispatch = new LoadFirstDispatcher(
-				"src/main/resources/data/sorted_data.csv");
+				"src/main/resources/data/1000Records.csv");
 		logger.info("Finished parsing");
 		// Query processors
 		List<AbstractQueryProcessor> processors = new ArrayList<>();
@@ -48,7 +49,7 @@ public class MainNonStreaming {
 		//processors.add(new SimpleQuerySumEvent(measure));
 		//processors.add(new NaiveAverage(measure));
 		//processors.add(new IncrementalAverage(measure));	
-		processors.add(new RouteMembershipProcessor(measure));	
+		processors.add(new RouteMembershipProcessor2(measure));	
 
 
 		// Register query processors
@@ -79,17 +80,21 @@ public class MainNonStreaming {
 		measure.setProcessedRecords(dispatch.getRecords());
 		measure.outputMeasure();
 
-		/*
-		float x1 = (float) -73.98358;
-		float y1= (float) 40.7341;
-		float x2= (float) -73.98048;
-		float y2= (float) 40.72557 ;
-		String l1= "4FE0002AAE2310E6DD209FBB9187AF71";
-		*/
-
-		DebsRecord recordTest = RouteMembershipProcessor.getRec();
 		
-		System.out.println("Route find : " + RouteMembershipProcessor.checkroute(recordTest));
+		//x1: -73.98715 /y1: 40.732376 /x2: -73.996155 /y2: 40.75883 /li: FDAE3E515EB1419900CF1D5E83073FB2
+		float x1 = (float) -73.98715;
+		float y1= (float) 40.732376;
+		float x2= (float) -73.996155;
+		float y2= (float) 40.75883;
+		String l1= "FDAE3E515EB1419900CF1D5E83073FB2";
+		
+		
+		DebsRecord recordTestFaux = new DebsRecord("", "", 4, 4, 4, 4, 4, 4, 4, 4, "", 4, 4, 4, 4, 4, 4, false);
+		DebsRecord recordTestVrai = new DebsRecord("", l1, 4, 4, 4, 4, x1, y1, x2, y2, "", 4, 4, 4, 4, 4, 4, false);
+		
+		
+		System.out.println("Route find : " + RouteMembershipProcessor2.checkroute(recordTestVrai));
+		System.out.println("Route find : " + RouteMembershipProcessor2.checkroute(recordTestFaux));
 
 	}
 

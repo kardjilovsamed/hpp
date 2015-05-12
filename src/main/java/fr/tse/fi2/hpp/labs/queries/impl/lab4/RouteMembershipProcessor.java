@@ -2,21 +2,10 @@ package fr.tse.fi2.hpp.labs.queries.impl.lab4;
 
 import java.util.ArrayList;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Measurement;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.Warmup;
-
 import fr.tse.fi2.hpp.labs.beans.DebsRecord;
 import fr.tse.fi2.hpp.labs.beans.measure.QueryProcessorMeasure;
 import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 
-@Warmup(iterations = 5)
-@Measurement(iterations = 5)
-@Fork(1)
-@State(Scope.Benchmark)
 public class RouteMembershipProcessor extends AbstractQueryProcessor {
 
 	private static ArrayList<DebsRecord> listeRoute = new ArrayList<DebsRecord>();
@@ -27,7 +16,6 @@ public class RouteMembershipProcessor extends AbstractQueryProcessor {
 		super(measure);
 	}
 
-	@Override
 	protected void process(DebsRecord record) {
 		listeRoute.add(record);
 
