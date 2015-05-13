@@ -1,4 +1,4 @@
-package fr.tse.fi2.hpp.labs.main;
+package fr.tse.fi2.hpp.labs.benchmarks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import fr.tse.fi2.hpp.labs.beans.DebsRecord;
 import fr.tse.fi2.hpp.labs.beans.measure.QueryProcessorMeasure;
 import fr.tse.fi2.hpp.labs.dispatcher.LoadFirstDispatcher;
+import fr.tse.fi2.hpp.labs.main.MainNonStreaming;
 import fr.tse.fi2.hpp.labs.queries.AbstractQueryProcessor;
 import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor;
 import fr.tse.fi2.hpp.labs.queries.impl.lab4.RouteMembershipProcessor2;

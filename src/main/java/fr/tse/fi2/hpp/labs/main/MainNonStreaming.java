@@ -99,14 +99,14 @@ public class MainNonStreaming {
 
 		int nb = 0;
 		
-		for( int i = 0; i<10000; i++){
+		for( int i = 0; i<10000000; i++){
 			DebsRecord recordTest = new DebsRecord("", l1, 4, 4, 4, 4, x1, i, x2, y2, "", 4, 4, 4, 4, 4, 4, false);
 			if( RouteMembershipProcessor3.checkroute(recordTest) == true ){
 				nb++;
 			}
 		}
 		
-		System.out.println("Sur 10 000 routes fausses, il y en a "+nb+" qui sont considérées vrai, soit une erreur de "+ (float)nb/100 +" %.");
+		System.out.println("Sur 10 000 000 routes fausses, il y en a "+nb+" qui sont considérées vrai, soit une erreur de "+ (float)nb/100000 +" %.");
 	}
 
 }
