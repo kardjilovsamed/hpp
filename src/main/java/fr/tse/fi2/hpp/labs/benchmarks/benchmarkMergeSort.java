@@ -1,5 +1,6 @@
 package fr.tse.fi2.hpp.labs.benchmarks;
 
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.Benchmark;
@@ -19,6 +20,7 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import fr.tse.fi2.hpp.labs.utils.MergeSortMono;
+import fr.tse.fi2.hpp.labs.utils.MergeSortMulti;
 
 
 @BenchmarkMode(Mode.AverageTime)
@@ -49,6 +51,15 @@ public class benchmarkMergeSort {
 	@Benchmark
 	public void testMethod2() {
 		int[] listeTrie = MergeSortMono.trierInsertionSort(liste);
+		System.out.println("Fin du tri");
+	}
+	
+	@Benchmark
+	public void testMethod3() {
+		MergeSortMulti tri1 = new MergeSortMulti(liste);
+		int cores = Runtime.getRuntime().availableProcessors();
+		ForkJoinPool forkJoinPool = new ForkJoinPool(cores);
+		int[] listeTrie = forkJoinPool.invoke(tri1);
 		System.out.println("Fin du tri");
 	}
 	
